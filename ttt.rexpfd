@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<rexpfd>
+    <destination path="hqmqurj3.123.57.151.176:/home/dev/tomcat7/webapps/admin/WEB-INF/classes"/>
+    <options createDirectoryStructure="false" createSelectedOnly="true" descriptionFilePath="/cacheServer/ttt.rexpfd" overWriteExistingFiles="false" reviewSynchronize="false" saveSettings="true"/>
+    <selectedElements>
+        <folder path="/adminportal/target/classes/cn"/>
+        <folder path="/adminportal/target/classes/core"/>
+    </selectedElements>
+</rexpfd>

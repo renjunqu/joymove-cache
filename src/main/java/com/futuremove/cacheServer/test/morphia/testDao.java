@@ -1,0 +1,21 @@
+package com.futuremove.cacheServer.test.morphia;
+
+import org.mongodb.morphia.Datastore;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.futuremove.cacheServer.dao.CarDao;
+import com.futuremove.cacheServer.entity.Car;
+
+public class testDao {
+	
+	public static void main(String []args){
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/cacheServerBeans.xml");
+		Datastore  datastore  = (Datastore)context.getBean("datastore");
+		CarDao dao  = new CarDao(datastore);
+		Car c = dao.get("sdfdsf");
+		System.out.println(c);
+		
+	}
+
+}
