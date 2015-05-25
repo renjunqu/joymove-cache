@@ -8,7 +8,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.futuremove.cacheServer.amqp.handler.impl.RegisterHandler;
 import com.futuremove.cacheServer.dao.CarDao;
 import com.futuremove.cacheServer.dao.DynamicMatDao;
 import com.futuremove.cacheServer.dao.StaticMatDao;

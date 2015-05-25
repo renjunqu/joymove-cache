@@ -20,7 +20,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.FileCopyUtils;
 
-import com.futuremove.cacheServer.amqp.handler.impl.RegisterHandler;
 import com.futuremove.cacheServer.service.CarService;
 import com.futuremove.cacheServer.test.Human;
 import com.futuremove.cacheServer.entity.*;
@@ -34,7 +33,6 @@ public class ClearExpireReserveJob  implements Job {
 	
 	
 	
-	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		// TODO Auto-generated method stub
 		try {

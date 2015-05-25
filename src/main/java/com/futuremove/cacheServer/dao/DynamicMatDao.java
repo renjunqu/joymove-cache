@@ -15,7 +15,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.bson.types.ObjectId;
 
-import com.futuremove.cacheServer.amqp.handler.impl.RegisterHandler;
 import com.futuremove.cacheServer.entity.Car;
 import com.futuremove.cacheServer.entity.DynamicMat;
 import com.futuremove.cacheServer.entity.DynamicMatCarInfo;

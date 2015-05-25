@@ -3,20 +3,35 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.futuremove</groupId>
-  <artifactId>cacheServer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <artifactId>joymove-cache</artifactId>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
 
-  <name>cacheServer</name>
+  <name>joymove-cache</name>
   <url>http://maven.apache.org</url>
   
-     <repositories>  
+     <repositories>
+		 <repository>
+			 <id>nexus</id>
+			 <name>futuremove</name>
+			 <url>http://123.56.135.176:8081/nexus</url>
+		 </repository>
+
           <repository>  
                <id>main repo 1</id>  
                <name>maven2 main repo</name>  
                <url>https://repo.maven.apache.org/maven2</url>  
           </repository>  
-    </repositories>  
+    </repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://123.56.135.176:8081/nexus/content/repositories/releases/</url>
+		</repository>
+	</distributionManagement>
+
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -193,7 +208,7 @@
          			<configuration>
        					<archive>
          					<manifest>
-           						<mainClass>com.futuremove.cacheServer.test.quartz.testQuartz</mainClass>
+           						<mainClass>com.futuremove.joymove-cache.test.quartz.testQuartz</mainClass>
          					</manifest>
        					</archive>
          			</configuration>
@@ -203,7 +218,7 @@
   					<configuration>
     					<archive>
       						<manifest>
-        							<mainClass>com.futuremove.cacheServer.test.testLog</mainClass>
+        							<mainClass>com.futuremove.joymove-cache.test.testLog</mainClass>
       						</manifest>
     					</archive>
     					<descriptorRefs>
