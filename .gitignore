@@ -11,4 +11,4 @@ src/main/webapp/WEB-INF/lib
 **/*.class
 *.log
 **/*.log
-
+.idea
