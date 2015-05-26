@@ -14,45 +14,27 @@ import com.futuremove.cacheServer.dao.StaticMatDao;
 import com.futuremove.cacheServer.entity.Car;
 import com.futuremove.cacheServer.entity.DynamicMatCarInfo;
 import com.futuremove.cacheServer.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 /*
  *   NCar means new car, used the old for test
  * 
  * */
+
+@Service("carService")
 public class CarServiceImpl  implements CarService {
 	
 	final static Logger logger = LoggerFactory.getLogger(CarServiceImpl.class);
-	
+
+	@Autowired
 	private CarDao carDao;
+	@Autowired
 	private DynamicMatDao dynamicMatDao;
+	@Autowired
 	private StaticMatDao staticMatDao;
-	public CarDao getCarDao() {
-		return carDao;
-	}
-	public void setCarDao(CarDao carDao) {
-		this.carDao = carDao;
-	}
-	public DynamicMatDao getDynamicMatDao() {
-		return dynamicMatDao;
-	}
-	public void setDynamicMatDao(DynamicMatDao dynamicMatDao) {
-		this.dynamicMatDao = dynamicMatDao;
-	}
-	public StaticMatDao getStaticMatDao() {
-		return staticMatDao;
-	}
-	public void setStaticMatDao(StaticMatDao staticMatDao) {
-		this.staticMatDao = staticMatDao;
-	}
-	
-	
-	public CarServiceImpl(CarDao carDao, DynamicMatDao dynamicMatDao,
-			StaticMatDao staticMatDao) {
-		super();
-		this.carDao = carDao;
-		this.dynamicMatDao = dynamicMatDao;
-		this.staticMatDao = staticMatDao;
-	}
+
 	public CarServiceImpl() {
 		super();
 		// TODO Auto-generated constructor stub

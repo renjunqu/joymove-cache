@@ -20,30 +20,18 @@ import com.futuremove.cacheServer.entity.DynamicMat;
 import com.futuremove.cacheServer.entity.DynamicMatCarInfo;
 import com.futuremove.cacheServer.entity.StaticMat;
 import com.futuremove.cacheServer.service.CarService;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
+
+@Repository
 public class DynamicMatDao{
 	
 	final static Logger logger = LoggerFactory.getLogger(DynamicMatDao.class);
-		
-	
+
+	@Resource(name = "datastore")
      private Datastore datastore;
-     
-	
-	
-	public Datastore getDatastore() {
-		return datastore;
-	}
 
-	public void setDatastore(Datastore datastore) {
-		this.datastore = datastore;
-	}
-	
-	
-
-	public DynamicMatDao(Datastore datastore) {
-		super();
-		this.datastore = datastore;
-	}
 
 	
 	

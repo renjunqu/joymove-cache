@@ -14,32 +14,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.futuremove.cacheServer.entity.Car;
 import com.futuremove.cacheServer.entity.DynamicMat;
 import com.futuremove.cacheServer.service.CarService;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
+
+@Repository
 public class CarDao  {
 	
 	final static Logger logger = LoggerFactory.getLogger(CarDao.class);
-	
-	
+
+	@Resource(name = "datastore")
     private Datastore datastore;
-    
-	
-	
-	public Datastore getDatastore() {
-		return datastore;
-	}
-
-	public void setDatastore(Datastore datastore) {
-		this.datastore = datastore;
-	}
-	
-	
-
-	public CarDao(Datastore datastore) {
-		super();
-		this.datastore = datastore;
-	}
-
-	
 	
 	public CarDao() {
 		super();
@@ -67,7 +54,11 @@ public class CarDao  {
 		// TODO Auto-generated method stub
 		Query<Car> q = datastore.createQuery(Car.class).field("vinNum")
 				.equal(vinNum);
-		return q.asList().get(0);
+		List<Car> carList = q.asList();
+		if(carList.size()==0)
+			return null;
+		else
+			return q.asList().get(0);
 	}
 
 	public void save(Car car) {

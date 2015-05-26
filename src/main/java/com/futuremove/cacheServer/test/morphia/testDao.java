@@ -10,11 +10,7 @@ import com.futuremove.cacheServer.entity.Car;
 public class testDao {
 	
 	public static void main(String []args){
-		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/cacheServerBeans.xml");
-		Datastore  datastore  = (Datastore)context.getBean("datastore");
-		CarDao dao  = new CarDao(datastore);
-		Car c = dao.get("sdfdsf");
-		System.out.println(c);
+
 		
 	}
 
