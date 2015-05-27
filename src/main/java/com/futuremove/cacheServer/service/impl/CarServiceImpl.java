@@ -40,7 +40,7 @@ public class CarServiceImpl  implements CarService {
 		// TODO Auto-generated constructor stub
 	}
 	/************ business method  ******************/
-	@Override
+
 	public void updateCarPosition(Car car) {
 
 		logger.info("inside  updateCarPosition !!");
@@ -78,7 +78,7 @@ public class CarServiceImpl  implements CarService {
 			}
 
 	}
-	@Override
+
 	public void save(Car car) {
 		// TODO Auto-generated method stub
 		carDao.save(car);
@@ -88,7 +88,7 @@ public class CarServiceImpl  implements CarService {
 	public Car getByVinNum(String vinNum){
 		return carDao.get(vinNum);
 	}
-	@Override
+
 	public void updateCarState(Car car) {
 		logger.info("service: inside  updateCarPosition start !!");
 
@@ -96,7 +96,7 @@ public class CarServiceImpl  implements CarService {
 	    logger.info("service: inside  updateCarPosition over !!");
 
 	}
-	@Override
+
 	public void clearExpireReserve(Car car) {
 		logger.info("inside  clearExpireReserve !!");
 
@@ -111,7 +111,7 @@ public class CarServiceImpl  implements CarService {
 	}
 	
 	//set car state to pending, when car's state as free
-	@Override
+
 	public void updateCarStateFree(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService  : update State to Pending start");
@@ -124,7 +124,7 @@ public class CarServiceImpl  implements CarService {
 	
 	
 	//set car state to pending, when car's state as free
-	@Override
+
 	public void updateCarStateWaitCode(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService  : update State to Pending start");
@@ -137,7 +137,7 @@ public class CarServiceImpl  implements CarService {
 	
 	
 	//set car state to pending, when car's state as free
-	@Override
+
 	public void updateCarStateReservePending(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService  : update State to Pending start");
@@ -148,7 +148,7 @@ public class CarServiceImpl  implements CarService {
 	}
 		
 	//set car state to reserved, when car's state as pending
-	@Override
+
 	public void updateCarStateReserved(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService : update State to reserved start");
@@ -159,7 +159,7 @@ public class CarServiceImpl  implements CarService {
 	}
 		
 	//set car state to reserved, when car's state as pending
-	@Override
+
 	public void updateCarStateBusy(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService : update State to Busy start");
@@ -167,7 +167,7 @@ public class CarServiceImpl  implements CarService {
 	     carDao.updateCarStateBusy(car);
 		logger.debug("carService : update State to Busy over ");	
 	}
-	@Override
+
 	public List<Car> getFreeCarByScope(Map<String, Object> likeCondition) {
 		// TODO Auto-generated method stub
 		//search in free matrix
@@ -188,7 +188,7 @@ public class CarServiceImpl  implements CarService {
 		}
 		return retCars;
 	}
-	@Override
+
 	public List<Car> getBusyCarByScope(Map<String, Object> likeCondition) {
 		// TODO Auto-generated method stub
 		//search in free matrix
