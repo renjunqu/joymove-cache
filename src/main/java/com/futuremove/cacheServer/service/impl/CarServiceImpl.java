@@ -175,6 +175,9 @@ public class CarServiceImpl  implements CarService {
 		Long userY = StaticMatDao.getYIndex(Double.valueOf(likeCondition.get("userPositionY").toString()));
 		Long margin = Double.valueOf(likeCondition.get("scope").toString()).longValue();
 		margin = margin/50;
+		if(margin<=1) {
+			margin = new Long(2);
+		}
 		Long minX = userX - margin,maxX=userX+margin;
 		Long minY = userY - margin,maxY=userY+margin;
 		//first get the car vin num
