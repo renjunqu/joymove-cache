@@ -11,15 +11,17 @@ public class Car {
 	public static int state_free = 0;
 	public static int state_reserved  = 1;
 	public static int state_busy = 2;
-	public static int state_wait_code = 3;
+	public static int state_wait_sendcode = 3;
 	//its used to two-phase commit
 	public static int state_reserve_pending = 4;
 	//等待开火
-	public static int state_wait_power = 5;
+	public static int state_wait_poweron = 5;
 	//等待关火
-	public  static int state_wait_off = 6;
+	public  static int state_wait_poweroff = 6;
     //等待锁车成功
 	public static int state_wait_lock = 7;
+
+	public static int state_wait_clearcode = 8;
 	
 	@Id
 	@Indexed
@@ -29,11 +31,6 @@ public class Car {
 	private Double latitude;
 	private Double desLongitude;
 	private Double desLatitude;
-	
-	
-	/* used for prevent conconrrent access*/
-	@Version
-	private Long   version;
 	
 	
 	@Indexed
@@ -78,12 +75,6 @@ public class Car {
 	public void setDesLatitude(Double desLatitude) {
 		this.desLatitude = desLatitude;
 	}
-	public Long getVersion() {
-		return version;
-	}
-	public void setVersion(Long version) {
-		this.version = version;
-	}
 	public Integer getState() {
 		return state;
 	}
@@ -91,14 +82,13 @@ public class Car {
 		this.state = state;
 	}
 	public Car(String vinNum, Double longitude, Double latitude,
-			Double desLongitude, Double desLatitude, Long version, Integer state,String owner) {
+			Double desLongitude, Double desLatitude,  Integer state,String owner) {
 		super();
 		this.vinNum = vinNum;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.desLongitude = desLongitude;
 		this.desLatitude = desLatitude;
-		this.version = version;
 		this.state = state;
 		this.owner = owner;
 	}

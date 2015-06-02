@@ -87,50 +87,6 @@ public class CarDao  {
 
 	}
 
-	//set car state to free, when car's state as specified
-
-
-	public void updateCarStateFree(Car car) {
-		this.changeCarState(Car.state_free,car);
-	}
-	//set car state to wait_code, when car's state as free or reserved, that means specified
-	public void updateCarStateWaitCode(Car car) {
-		car.setState(Car.state_free);
-		this.changeCarState(Car.state_wait_code, car);
-	}
-
-	//set car state to pending, when car's state as free
-	public void updateCarStateReservePending(Car car) {
-		car.setState(Car.state_free);
-		this.changeCarState(Car.state_reserve_pending,car);
-
-	}
-		
-	//set car state to reserved, when car's state as pending
-	public void updateCarStateReserved(Car car) {
-		car.setState(Car.state_reserve_pending);
-		this.changeCarState(Car.state_reserved,car);
-
-	}
-	
-	//set car state to reserved, when car's state as pending
-	public void updateCarStateBusy(Car car) {
-		this.changeCarState(Car.state_busy,car);
-
-	}
-
-	public void  updateCarStatePowerOn(Car car){
-		car.setState(car.state_free);
-		this.changeCarState(Car.state_wait_power,car);
-	}
-
-	public void  updateCarStateWaitLock(Car car){
-		this.changeCarState(Car.state_wait_lock,car);
-	}
-
-
-
-
 
 
 

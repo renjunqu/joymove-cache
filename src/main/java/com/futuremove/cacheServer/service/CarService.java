@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.futuremove.cacheServer.entity.Car;
+import com.futuremove.cacheServer.utils.ConfigUtils;
+import com.futuremove.cacheServer.utils.HttpPostUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public interface CarService {
 
@@ -18,12 +22,15 @@ public interface CarService {
 	List<Car> getFreeCarByScope(Map<String, Object> likeCondition);
 	List<Car> getBusyCarByScope(Map<String, Object> likeCondition);
 	void updateCarStateFree(Car car);
-	void updateCarStateWaitCode(Car car);
-	void updateCarStatePowerOn(Car car);
+	void updateCarStateWaitSendCode(Car car);
+	void updateCarStateWaitPowerOn(Car car);
 	void updateCarStateWaitLock(Car car);
-
-	boolean sendLock(String vin) throws Exception;
-	boolean sendPowerOff(String vin) throws Exception;
-	boolean sendClearCode(String vin) throws Exception;
+	void updateCarStateWaitClearCode(Car car);
+	void updateCarStateWaitPowerOff(Car car);
+	boolean sendAuthCode(String vin);
+	boolean sendLock(String vin) ;
+	boolean sendPowerOff(String vin) ;
+	boolean sendClearCode(String vin);
+	boolean sendPowerOn(String vin) ;
 
 }

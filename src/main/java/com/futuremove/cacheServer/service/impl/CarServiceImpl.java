@@ -71,7 +71,7 @@ public class CarServiceImpl  implements CarService {
 						logger.info("then update data into static matrix");
 						staticMatDao.updateCarInfo(prevCar,car);
 						return;
-					} else if(prevCar.getState() == Car.state_reserved || prevCar.getState()==Car.state_wait_code) {
+					} else {
 						//other state
 						dynamicMatDao.removeCar(prevCar);
 						staticMatDao.removeCar(prevCar);
@@ -97,10 +97,7 @@ public class CarServiceImpl  implements CarService {
 
 	public void clearExpireReserve(Car car) {
 		logger.info("inside  clearExpireReserve !!");
-
 		carDao.clearExpireReserve(car);
-
-		
 	}
 	
 	public Car getByOwnerAndNotState(Car car) {
@@ -113,9 +110,7 @@ public class CarServiceImpl  implements CarService {
 	public void updateCarStateFree(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService  : update State to Pending start");
-
-	    carDao.updateCarStateFree(car);
-
+	    carDao.changeCarState(Car.state_free,car);
 		logger.debug("carService : update State to Pending over ");	
 	}
 	
@@ -123,14 +118,20 @@ public class CarServiceImpl  implements CarService {
 	
 	//set car state to pending, when car's state as free
 
-	public void updateCarStateWaitCode(Car car) {
+	public void updateCarStateWaitSendCode(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService  : update State to Pending start");
-
-	    carDao.updateCarStateWaitCode(car);
-
+		carDao.changeCarState(Car.state_wait_sendcode,car);
 		logger.debug("carService : update State to Pending over ");	
 	}
+
+	public void updateCarStateWaitClearCode(Car car) {
+		// TODO Auto-generated method stub
+		logger.debug("carService  : update State to Pending start");
+		carDao.changeCarState(Car.state_wait_clearcode,car);
+		logger.debug("carService : update State to Pending over ");
+	}
+
 	
 	
 	
@@ -139,10 +140,9 @@ public class CarServiceImpl  implements CarService {
 	public void updateCarStateReservePending(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService  : update State to Pending start");
-
-	    carDao.updateCarStateReservePending(car);
-
-		logger.debug("carService : update State to Pending over ");	
+		car.setState(Car.state_free);
+		carDao.changeCarState(Car.state_reserve_pending,car);
+		logger.debug("carService : update State to Pending over ");
 	}
 		
 	//set car state to reserved, when car's state as pending
@@ -150,9 +150,8 @@ public class CarServiceImpl  implements CarService {
 	public void updateCarStateReserved(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService : update State to reserved start");
-
-		carDao.updateCarStateReserved(car);
-
+		car.setState(Car.state_reserve_pending);
+		carDao.changeCarState(Car.state_reserved,car);
 		logger.debug("carService : update State to reserved over ");	
 	}
 		
@@ -161,19 +160,27 @@ public class CarServiceImpl  implements CarService {
 	public void updateCarStateBusy(Car car) {
 		// TODO Auto-generated method stub
 		logger.debug("carService : update State to Busy start");
-
-	     carDao.updateCarStateBusy(car);
-		logger.debug("carService : update State to Busy over ");	
+		carDao.changeCarState(Car.state_busy,car);
+	 	logger.debug("carService : update State to Busy over ");
 	}
 
-	public void updateCarStatePowerOn(Car car){
-		//logger.debug("carService : update State to Busy start");
-		carDao.updateCarStatePowerOn(car);
-		//logger.debug("carService : update State to Busy over ");
+	public void updateCarStateWaitPowerOn(Car car){
+		logger.debug("carService : update State to Busy start");
+		carDao.changeCarState(Car.state_wait_poweron, car);
+		logger.debug("carService : update State to Busy over ");
 	}
+
+
+	public void updateCarStateWaitPowerOff(Car car){
+		logger.debug("carService : update State to Busy start");
+		carDao.changeCarState(Car.state_wait_poweroff, car);
+		logger.debug("carService : update State to Busy over ");
+	}
+
+
 	public void updateCarStateWaitLock(Car car){
 		//logger.debug("carService : update State to Busy start");
-		carDao.updateCarStateWaitLock(car);
+		carDao.changeCarState(Car.state_wait_lock, car);
 		//logger.debug("carService : update State to Busy over ");
 	}
 
@@ -187,6 +194,8 @@ public class CarServiceImpl  implements CarService {
 		margin = margin/50;
 		if(margin<=1) {
 			margin = new Long(2);
+		} else if(margin >=100000L) {
+			margin = 100000L;
 		}
 		Long minX = userX - margin,maxX=userX+margin;
 		Long minY = userY - margin,maxY=userY+margin;
@@ -211,6 +220,8 @@ public class CarServiceImpl  implements CarService {
 		margin = margin/50;
 		if(margin<=1) {
 			margin = new Long(2);
+		} else if(margin >=100000L) {
+			margin = 100000L;
 		}
 		Long minX = userX - margin,maxX=userX+margin;
 		Long minY = userY - margin,maxY=userY+margin;
@@ -227,47 +238,101 @@ public class CarServiceImpl  implements CarService {
 	}
 
 
-	public boolean sendLock(String vin) throws Exception {
-		String timeStr = String.valueOf(System.currentTimeMillis());
-		String data = "time="+timeStr+"&vin="+vin;
-		String url = ConfigUtils.getPropValues("cloudmove.lock");
-		String result = HttpPostUtils.post(url, data);
+	public boolean sendLock(String vin){
+		try {
+				String timeStr = String.valueOf(System.currentTimeMillis());
+				String data = "time="+timeStr+"&vin="+vin;
+				String url = ConfigUtils.getPropValues("cloudmove.lock");
+				String result = HttpPostUtils.post(url, data);
 
-		JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
-		int opResult = Integer.parseInt(cmObj.get("result").toString());
-		if(opResult==1)
-			return true;
-		else
-			return false;
+				JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
+				int opResult = Integer.parseInt(cmObj.get("result").toString());
+				if(opResult==1)
+					return true;
+				else
+					return false;
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+
 
 	}
 
-	public boolean sendPowerOff(String vin) throws Exception {
-		String timeStr = String.valueOf(System.currentTimeMillis());
-		String data = "time="+timeStr+"&vin="+vin;
-		String url = ConfigUtils.getPropValues("cloudmove.poweroff");
-		String result = HttpPostUtils.post(url, data);
+	public boolean sendPowerOff(String vin) {
+		try {
+				String timeStr = String.valueOf(System.currentTimeMillis());
+				String data = "time="+timeStr+"&vin="+vin;
+				String url = ConfigUtils.getPropValues("cloudmove.poweroff");
+				String result = HttpPostUtils.post(url, data);
 
-		JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
-		int opResult = Integer.parseInt(cmObj.get("result").toString());
-		if(opResult==1)
-			return true;
-		else
-			return false;
+				JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
+				int opResult = Integer.parseInt(cmObj.get("result").toString());
+				if(opResult==1)
+					return true;
+				else
+					return false;
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+
 	}
 
-	public boolean sendClearCode(String vin) throws Exception{
-		String timeStr = String.valueOf(System.currentTimeMillis());
-		String data = "time="+timeStr+"&vin="+vin;
-		String url = ConfigUtils.getPropValues("cloudmove.clearAuth");
-		String result = HttpPostUtils.post(url, data);
+	public boolean sendClearCode(String vin){
+		try {
+				String timeStr = String.valueOf(System.currentTimeMillis());
+				String data = "time="+timeStr+"&vin="+vin;
+				String url = ConfigUtils.getPropValues("cloudmove.clearAuth");
+				String result = HttpPostUtils.post(url, data);
 
-		JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
-		int opResult = Integer.parseInt(cmObj.get("result").toString());
-		if(opResult==1)
-			return true;
-		else
-			return false;
+				JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
+				int opResult = Integer.parseInt(cmObj.get("result").toString());
+				if(opResult==1)
+					return true;
+				else
+					return false;
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean sendPowerOn(String vin) {
+		try {
+			String timeStr = String.valueOf(System.currentTimeMillis());
+			String data = "time="+timeStr+"&vin="+vin;
+			String url = ConfigUtils.getPropValues("cloudmove.poweron");
+			String result = HttpPostUtils.post(url, data);
+			JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
+			int opResult = Integer.parseInt(cmObj.get("result").toString());
+			if(opResult==1)
+				return true;
+			else
+				return false;
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean sendAuthCode(String vin) {
+		try {
+			String postUrl=ConfigUtils.getPropValues("cloudmove.sendAuth");
+			String timeStr = String.valueOf(System.currentTimeMillis());
+			String postData = "time=" + timeStr + "&vin=" + vin + "&auth=abcdef";
+			String result = HttpPostUtils.post(postUrl, postData);
+			JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
+			int opResult = Integer.parseInt(cmObj.get("result").toString());
+			if(opResult==1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 		
