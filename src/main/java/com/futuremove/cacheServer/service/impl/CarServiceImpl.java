@@ -5,6 +5,10 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Map;
 
+import com.futuremove.cacheServer.utils.ConfigUtils;
+import com.futuremove.cacheServer.utils.HttpPostUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,13 +93,7 @@ public class CarServiceImpl  implements CarService {
 		return carDao.get(vinNum);
 	}
 
-	public void updateCarState(Car car) {
-		logger.info("service: inside  updateCarPosition start !!");
 
-	    carDao.updateCarState(car);
-	    logger.info("service: inside  updateCarPosition over !!");
-
-	}
 
 	public void clearExpireReserve(Car car) {
 		logger.info("inside  clearExpireReserve !!");
@@ -168,6 +166,18 @@ public class CarServiceImpl  implements CarService {
 		logger.debug("carService : update State to Busy over ");	
 	}
 
+	public void updateCarStatePowerOn(Car car){
+		//logger.debug("carService : update State to Busy start");
+		carDao.updateCarStatePowerOn(car);
+		//logger.debug("carService : update State to Busy over ");
+	}
+	public void updateCarStateWaitLock(Car car){
+		//logger.debug("carService : update State to Busy start");
+		carDao.updateCarStateWaitLock(car);
+		//logger.debug("carService : update State to Busy over ");
+	}
+
+
 	public List<Car> getFreeCarByScope(Map<String, Object> likeCondition) {
 		// TODO Auto-generated method stub
 		//search in free matrix
@@ -215,6 +225,51 @@ public class CarServiceImpl  implements CarService {
 		}
 		return retCars;
 	}
+
+
+	public boolean sendLock(String vin) throws Exception {
+		String timeStr = String.valueOf(System.currentTimeMillis());
+		String data = "time="+timeStr+"&vin="+vin;
+		String url = ConfigUtils.getPropValues("cloudmove.lock");
+		String result = HttpPostUtils.post(url, data);
+
+		JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
+		int opResult = Integer.parseInt(cmObj.get("result").toString());
+		if(opResult==1)
+			return true;
+		else
+			return false;
+
+	}
+
+	public boolean sendPowerOff(String vin) throws Exception {
+		String timeStr = String.valueOf(System.currentTimeMillis());
+		String data = "time="+timeStr+"&vin="+vin;
+		String url = ConfigUtils.getPropValues("cloudmove.poweroff");
+		String result = HttpPostUtils.post(url, data);
+
+		JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
+		int opResult = Integer.parseInt(cmObj.get("result").toString());
+		if(opResult==1)
+			return true;
+		else
+			return false;
+	}
+
+	public boolean sendClearCode(String vin) throws Exception{
+		String timeStr = String.valueOf(System.currentTimeMillis());
+		String data = "time="+timeStr+"&vin="+vin;
+		String url = ConfigUtils.getPropValues("cloudmove.clearAuth");
+		String result = HttpPostUtils.post(url, data);
+
+		JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
+		int opResult = Integer.parseInt(cmObj.get("result").toString());
+		if(opResult==1)
+			return true;
+		else
+			return false;
+	}
+
 		
 	
 

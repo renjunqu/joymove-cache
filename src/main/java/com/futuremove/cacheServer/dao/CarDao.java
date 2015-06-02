@@ -65,120 +65,78 @@ public class CarDao  {
 		// TODO Auto-generated method stub
 		datastore.save(car);
 	}
-	//set car state to free, when car's state as specified
-	public void updateCarStateFree(Car car) {
+	//change car state to new_state, if now state equals old_state,if old_state not null
+	//and set owner of car.getOwner not null
+	public void changeCarState(Integer new_state,Car car) {
 		// TODO Auto-generated method stub
-		logger.debug("dao : update State to Free start");
-		 UpdateOperations<Car> ops = datastore.createUpdateOperations(Car.class)
-				.set("state",Car.state_free);
+		logger.debug("dao : update State to "+new_state+" start");
+		UpdateOperations<Car> ops = datastore.createUpdateOperations(Car.class)
+				.set("state",new_state);
+		if(car.getOwner() !=null) {
+			ops.set("owner",car.getOwner());
+		}
+
 		Query<Car> q = datastore.createQuery(Car.class)
-				.field("vinNum").equal(car.getVinNum())
-				.field("state").equal(car.getState());
+				.field("vinNum").equal(car.getVinNum());
+		if(car.getState()!=null) {
+			q.field("state").equals(car.getState());
+		}
 		datastore.update(q, ops);
-		logger.debug("dao : update State to Free over ");	
-		
+		logger.debug("dao : update State to" + new_state + " over ");
+
+
+	}
+
+	//set car state to free, when car's state as specified
+
+
+	public void updateCarStateFree(Car car) {
+		this.changeCarState(Car.state_free,car);
 	}
 	//set car state to wait_code, when car's state as free or reserved, that means specified
 	public void updateCarStateWaitCode(Car car) {
-		// TODO Auto-generated method stub
-		logger.debug("dao : update State to Pending start");
-		 UpdateOperations<Car> ops = datastore.createUpdateOperations(Car.class)
-				.set("state",Car.state_wait_code)
-				.set("owner", car.getOwner());
-		Query<Car> q = datastore.createQuery(Car.class)
-				.field("vinNum").equal(car.getVinNum())
-				.field("state").equal(car.getState());
-		datastore.update(q, ops);
-		logger.debug("dao : update State to Pending over ");	
-	} 
-	
-	
-	
+		car.setState(Car.state_free);
+		this.changeCarState(Car.state_wait_code, car);
+	}
+
 	//set car state to pending, when car's state as free
 	public void updateCarStateReservePending(Car car) {
-		// TODO Auto-generated method stub
-		logger.debug("dao : update State to Pending start");
-		 UpdateOperations<Car> ops = datastore.createUpdateOperations(Car.class)
-				.set("state",Car.state_reserve_pending)
-				.set("owner", car.getOwner());
-		Query<Car> q = datastore.createQuery(Car.class)
-				.field("vinNum").equal(car.getVinNum())
-				.field("state").equal(Car.state_free);
-		datastore.update(q, ops);
-		logger.debug("dao : update State to Pending over ");	
+		car.setState(Car.state_free);
+		this.changeCarState(Car.state_reserve_pending,car);
+
 	}
 		
 	//set car state to reserved, when car's state as pending
 	public void updateCarStateReserved(Car car) {
-			// TODO Auto-generated method stub
-			logger.debug("dao : update State to reserved start");
-			UpdateOperations<Car> ops = datastore.createUpdateOperations(Car.class)
-						.set("state",Car.state_reserved);
-			Query<Car> q = datastore.createQuery(Car.class)
-						.field("vinNum").equal(car.getVinNum())
-						.field("state").equal(Car.state_reserve_pending);
-			datastore.update(q, ops);
-			logger.debug("dao : update State to reserved over ");	
+		car.setState(Car.state_reserve_pending);
+		this.changeCarState(Car.state_reserved,car);
+
 	}
 	
 	//set car state to reserved, when car's state as pending
 	public void updateCarStateBusy(Car car) {
-				// TODO Auto-generated method stub
-			logger.debug("dao : update State to Busy start");
-			UpdateOperations<Car> ops = datastore.createUpdateOperations(Car.class)
-					.set("state",Car.state_busy);
-			Query<Car> q = datastore.createQuery(Car.class)
-					.field("vinNum").equal(car.getVinNum())
-					.field("state").equal(Car.state_wait_code);
-			datastore.update(q, ops);
-			logger.debug("dao : update State to Busy over ");	
-	}
-	
-	
+		this.changeCarState(Car.state_busy,car);
 
-	public void updateCarState(Car car) {
-		// TODO Auto-generated method stub
-		logger.debug("dao : update State Info start");
-		UpdateOperations<Car> ops = null;
-		if(car.getOwner()!=null) {
-		ops = datastore.createUpdateOperations(Car.class)
-				.set("state",car.getState()).set("owner", car.getOwner());
-		} else {
-		ops = datastore.createUpdateOperations(Car.class)
-					.set("state",car.getState());
-			
-		}
-		
-		Query<Car> q = datastore.createQuery(Car.class).field("vinNum")
-				.equal(car.getVinNum());
-		datastore.update(q, ops);
-		logger.debug("dao : update State Info over ");	
 	}
-	
+
+	public void  updateCarStatePowerOn(Car car){
+		car.setState(car.state_free);
+		this.changeCarState(Car.state_wait_power,car);
+	}
+
+	public void  updateCarStateWaitLock(Car car){
+		this.changeCarState(Car.state_wait_lock,car);
+	}
+
+
+
+
+
+
+
 	public static void main(String [] args){
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/cacheServerBeans.xml");
-		CarDao  carDao  = (CarDao)context.getBean("carDao");
-		StaticMatDao  staticMatDao  = (StaticMatDao)context.getBean("staticMatDao");
-		DynamicMatDao  dynamicMatDao  = (DynamicMatDao)context.getBean("dynamicMatDao");
-		CarService carService = (CarService)context.getBean("carService");
-		Datastore datastore = (Datastore)context.getBean("datastore");
-		
-		Car car  = new Car();
-		car.setVinNum("dsfdsf");
-		car.setState(0);
-		car.setOwner("");
-		car.setLatitude(49.9);
-		
-		car.setLongitude(116.049);
-		carService.save(car);
-		carService.updateCarPosition(car);
-		car.setState(Car.state_busy);
-		carService.updateCarState(car);
-		carService.updateCarPosition(car);
-		car.setState(Car.state_free);
-		carService.updateCarState(car);
-		carService.updateCarPosition(car);
-		System.out.println("over");
+
 		
 		
 	}

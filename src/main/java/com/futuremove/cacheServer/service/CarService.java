@@ -10,7 +10,6 @@ public interface CarService {
 	void updateCarPosition(Car car);
 	void save(Car car);
 	public Car getByVinNum(String vinNum);
-	void updateCarState(Car car);
 	void clearExpireReserve(Car car);
 	Car getByOwnerAndNotState(Car car);
 	void updateCarStateReservePending(Car car);
@@ -20,4 +19,11 @@ public interface CarService {
 	List<Car> getBusyCarByScope(Map<String, Object> likeCondition);
 	void updateCarStateFree(Car car);
 	void updateCarStateWaitCode(Car car);
+	void updateCarStatePowerOn(Car car);
+	void updateCarStateWaitLock(Car car);
+
+	boolean sendLock(String vin) throws Exception;
+	boolean sendPowerOff(String vin) throws Exception;
+	boolean sendClearCode(String vin) throws Exception;
+
 }

@@ -14,6 +14,12 @@ public class Car {
 	public static int state_wait_code = 3;
 	//its used to two-phase commit
 	public static int state_reserve_pending = 4;
+	//等待开火
+	public static int state_wait_power = 5;
+	//等待关火
+	public  static int state_wait_off = 6;
+    //等待锁车成功
+	public static int state_wait_lock = 7;
 	
 	@Id
 	@Indexed
