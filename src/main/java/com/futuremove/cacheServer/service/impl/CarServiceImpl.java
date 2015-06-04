@@ -73,6 +73,7 @@ public class CarServiceImpl  implements CarService {
 						return;
 					} else {
 						//other state
+						logger.info("update a  status for a Not Ready ~~~~~ car");
 						dynamicMatDao.removeCar(prevCar);
 						staticMatDao.removeCar(prevCar);
 					}
@@ -191,7 +192,7 @@ public class CarServiceImpl  implements CarService {
 		Long userX = StaticMatDao.getXIndex(Double.valueOf(likeCondition.get("userPositionX").toString()));
 		Long userY = StaticMatDao.getYIndex(Double.valueOf(likeCondition.get("userPositionY").toString()));
 		Long margin = Double.valueOf(likeCondition.get("scope").toString()).longValue();
-		margin = margin/50;
+		margin = margin/50 + 20L;
 		if(margin<=1) {
 			margin = new Long(2);
 		} else if(margin >=100000L) {
@@ -217,7 +218,7 @@ public class CarServiceImpl  implements CarService {
 		Long userX = StaticMatDao.getXIndex(Double.valueOf(likeCondition.get("userPositionX").toString()));
 		Long userY = StaticMatDao.getYIndex(Double.valueOf(likeCondition.get("userPositionY").toString()));
 		Long margin = Double.valueOf(likeCondition.get("scope").toString()).longValue();
-		margin = margin/50;
+		margin = margin/50 + 20L;
 		if(margin<=1) {
 			margin = new Long(2);
 		} else if(margin >=100000L) {
