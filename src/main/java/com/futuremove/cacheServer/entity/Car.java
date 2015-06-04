@@ -22,7 +22,7 @@ public class Car {
 	public static int state_wait_lock = 7;
 
 	public static int state_wait_clearcode = 8;
-	
+
 	@Id
 	@Indexed
 	private String vinNum;
