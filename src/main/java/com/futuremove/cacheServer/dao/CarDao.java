@@ -1,6 +1,7 @@
 package com.futuremove.cacheServer.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;
@@ -125,6 +126,13 @@ public class CarDao  {
 			return null;
 		}
 		
+	}
+
+	public List<Car> getPagedCarList(Map<String,Object> likeConditon) {
+		  Query<Car> q = datastore.createQuery(Car.class).
+				  offset(Integer.parseInt(String.valueOf(likeConditon.get("start")))).
+				  limit(Integer.parseInt(String.valueOf(likeConditon.get("limit"))));
+		return q.asList();
 	}
 
 

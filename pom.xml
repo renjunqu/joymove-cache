@@ -17,11 +17,13 @@
 			 <url>http://123.56.135.176:8081/nexus</url>
 		 </repository>
 
-          <repository>  
-               <id>main repo 1</id>  
-               <name>maven2 main repo</name>  
-               <url>https://repo.maven.apache.org/maven2</url>  
-          </repository>  
+		 <!--
+    <repository>
+        <id>nexus</id>
+        <name>futuremove</name>
+        <url>http://123.56.135.176:8081/nexus</url>
+    </repository>
+    -->
     </repositories>
 
 	<distributionManagement>

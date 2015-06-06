@@ -189,51 +189,61 @@ public class CarServiceImpl  implements CarService {
 	public List<Car> getFreeCarByScope(Map<String, Object> likeCondition) {
 		// TODO Auto-generated method stub
 		//search in free matrix
-		Long userX = StaticMatDao.getXIndex(Double.valueOf(likeCondition.get("userPositionX").toString()));
-		Long userY = StaticMatDao.getYIndex(Double.valueOf(likeCondition.get("userPositionY").toString()));
-		Long margin = Double.valueOf(likeCondition.get("scope").toString()).longValue();
-		margin = margin/50 + 20L;
-		if(margin<=1) {
-			margin = new Long(2);
-		} else if(margin >=100000L) {
-			margin = 100000L;
-		}
-		Long minX = userX - margin,maxX=userX+margin;
-		Long minY = userY - margin,maxY=userY+margin;
-		//first get the car vin num
-		List<String> carVinNums = staticMatDao.getCarVinNumByScope(minX,maxX,minY,maxY);
-		// then get the car
+
 		List<Car> retCars = new ArrayList<Car>();
-		for(String vinNum:carVinNums) {
-			Car car = carDao.get(vinNum);
-			if(car.getState()==Car.state_free)
-				retCars.add(car);
-		}
+
+			Long userX = StaticMatDao.getXIndex(Double.valueOf(likeCondition.get("userPositionX").toString()));
+			Long userY = StaticMatDao.getYIndex(Double.valueOf(likeCondition.get("userPositionY").toString()));
+			Long margin = Double.valueOf(likeCondition.get("scope").toString()).longValue();
+			margin = margin / 50 + 20L;
+			if (margin <= 1) {
+				margin = new Long(2);
+			} else if (margin >= 100000L) {
+				margin = 100000L;
+			}
+			Long minX = userX - margin, maxX = userX + margin;
+			Long minY = userY - margin, maxY = userY + margin;
+			//first get the car vin num
+			List<String> carVinNums = staticMatDao.getCarVinNumByScope(minX, maxX, minY, maxY);
+			// then get the car
+
+			for (String vinNum : carVinNums) {
+				Car car = carDao.get(vinNum);
+				if (car.getState() == Car.state_free)
+					retCars.add(car);
+			}
+
 		return retCars;
 	}
 
 	public List<Car> getBusyCarByScope(Map<String, Object> likeCondition) {
 		// TODO Auto-generated method stub
 		//search in free matrix
-		Long userX = StaticMatDao.getXIndex(Double.valueOf(likeCondition.get("userPositionX").toString()));
-		Long userY = StaticMatDao.getYIndex(Double.valueOf(likeCondition.get("userPositionY").toString()));
-		Long margin = Double.valueOf(likeCondition.get("scope").toString()).longValue();
-		margin = margin/50 + 20L;
-		if(margin<=1) {
-			margin = new Long(2);
-		} else if(margin >=100000L) {
-			margin = 100000L;
-		}
-		Long minX = userX - margin,maxX=userX+margin;
-		Long minY = userY - margin,maxY=userY+margin;
-		//first get the car vin num
-		List<DynamicMatCarInfo> infos = dynamicMatDao.getCarVinNumByScope(minX,maxX,minY,maxY);
-		// then get the car
 		List<Car> retCars = new ArrayList<Car>();
-		for(DynamicMatCarInfo info:infos) {
-			Car car = carDao.get(info.getVinNum());
-			if(car.getState()==Car.state_busy)
-				retCars.add(car);
+		try {
+			Long userX = StaticMatDao.getXIndex(Double.valueOf(likeCondition.get("userPositionX").toString()));
+			Long userY = StaticMatDao.getYIndex(Double.valueOf(likeCondition.get("userPositionY").toString()));
+			Long margin = Double.valueOf(likeCondition.get("scope").toString()).longValue();
+			margin = margin / 50 + 20L;
+			if (margin <= 1) {
+				margin = new Long(2);
+			} else if (margin >= 100000L) {
+				margin = 100000L;
+			}
+			Long minX = userX - margin, maxX = userX + margin;
+			Long minY = userY - margin, maxY = userY + margin;
+			//first get the car vin num
+			List<DynamicMatCarInfo> infos = dynamicMatDao.getCarVinNumByScope(minX, maxX, minY, maxY);
+			// then get the car
+
+			for (DynamicMatCarInfo info : infos) {
+				Car car = carDao.get(info.getVinNum());
+				if (car.getState() == Car.state_busy)
+					retCars.add(car);
+			}
+		} catch(Exception e){
+			System.out.println("inside busy scop exception");
+			System.out.println(e);
 		}
 		return retCars;
 	}
@@ -334,6 +344,10 @@ public class CarServiceImpl  implements CarService {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public List<Car> getPagedCarList(Map<String,Object> likeConditon){
+		return carDao.getPagedCarList(likeConditon);
 	}
 
 		

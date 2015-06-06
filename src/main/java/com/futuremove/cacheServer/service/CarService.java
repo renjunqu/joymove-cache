@@ -33,4 +33,6 @@ public interface CarService {
 	boolean sendClearCode(String vin);
 	boolean sendPowerOn(String vin) ;
 
+	List<Car> getPagedCarList(Map<String,Object> likeConditon);
+
 }
