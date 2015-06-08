@@ -103,7 +103,7 @@ public class CarDao  {
 		logger.debug("dao : update clearExpireReserve  start");
 		// TODO Auto-generated method stub
 		UpdateOperations<Car> ops = datastore.createUpdateOperations(Car.class)
-				.set("state",Car.state_free);
+				.set("state",Car.state_free).set("owner","");
 				
 		Query<Car> q = datastore.createQuery(Car.class)
 				.field("vinNum").equal(car.getVinNum())

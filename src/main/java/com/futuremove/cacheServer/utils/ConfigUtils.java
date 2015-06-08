@@ -7,23 +7,20 @@ import java.util.Date;
 import java.util.Properties;
 
 public class ConfigUtils {
-	public static String getPropValues(String propName){
-		Properties prop = new Properties();
-		String propFileName = "cacheServer.properties";
- 
-		InputStream inputStream = ConfigUtils.class.getClassLoader().getResourceAsStream(propFileName);
- 
-		if (inputStream != null) {
+	static Properties prop = null;
+	static {
+		InputStream inputStream = ConfigUtils.class.getClassLoader().getResourceAsStream("cacheServer.properties");
 			try {
+				prop = new Properties();
 				prop.load(inputStream);
-				return  prop.getProperty(propName);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		} 
-			return null;
+		}
+	public static String getPropValues(String propName){
+
+		return prop.getProperty(propName);
 	}
 	
 	public static void main(String[] args){

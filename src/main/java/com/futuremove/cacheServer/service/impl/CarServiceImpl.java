@@ -331,7 +331,7 @@ public class CarServiceImpl  implements CarService {
 		try {
 			String postUrl=ConfigUtils.getPropValues("cloudmove.sendAuth");
 			String timeStr = String.valueOf(System.currentTimeMillis());
-			String postData = "time=" + timeStr + "&vin=" + vin + "&auth=abcdef";
+			String postData = "time=" + timeStr + "&vin=" + vin + "&auth=ABCDEF";
 			String result = HttpPostUtils.post(postUrl, postData);
 			JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
 			int opResult = Integer.parseInt(cmObj.get("result").toString());
