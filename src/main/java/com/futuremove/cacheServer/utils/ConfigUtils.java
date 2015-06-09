@@ -6,7 +6,11 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
+
+
 public class ConfigUtils {
+
+
 	static Properties prop = null;
 	static {
 		InputStream inputStream = ConfigUtils.class.getClassLoader().getResourceAsStream("cacheServer.properties");
