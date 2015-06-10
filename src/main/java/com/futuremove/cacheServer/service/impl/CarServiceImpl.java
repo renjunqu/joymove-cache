@@ -250,6 +250,7 @@ public class CarServiceImpl  implements CarService {
 
 
 	public boolean sendLock(String vin){
+		logger.debug("called lock  command  with vin "+vin);
 		try {
 				String timeStr = String.valueOf(System.currentTimeMillis());
 				String data = "time="+timeStr+"&vin="+vin;
@@ -258,10 +259,14 @@ public class CarServiceImpl  implements CarService {
 
 				JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
 				int opResult = Integer.parseInt(cmObj.get("result").toString());
-				if(opResult==1)
+				if(opResult==1) {
+					logger.debug(" send lock   command  return ok ");
 					return true;
-				else
+				}
+				else {
+					logger.debug(" send lock  command  return failed ");
 					return false;
+				}
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -271,7 +276,10 @@ public class CarServiceImpl  implements CarService {
 	}
 
 	public boolean sendPowerOff(String vin) {
+		logger.debug("called power off command  with vin "+vin);
 		try {
+
+
 				String timeStr = String.valueOf(System.currentTimeMillis());
 				String data = "time="+timeStr+"&vin="+vin;
 				String url = ConfigUtils.getPropValues("cloudmove.poweroff");
@@ -279,10 +287,15 @@ public class CarServiceImpl  implements CarService {
 
 				JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
 				int opResult = Integer.parseInt(cmObj.get("result").toString());
-				if(opResult==1)
+				if(opResult==1) {
+					logger.debug(" power off command  return ok ");
 					return true;
-				else
+				}
+				else {
+
+					logger.debug(" power off command  return failed ");
 					return false;
+				}
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -291,6 +304,7 @@ public class CarServiceImpl  implements CarService {
 	}
 
 	public boolean sendClearCode(String vin){
+		logger.debug("called clear code command with vin "+vin);
 		try {
 				String timeStr = String.valueOf(System.currentTimeMillis());
 				String data = "time="+timeStr+"&vin="+vin;
@@ -299,10 +313,14 @@ public class CarServiceImpl  implements CarService {
 
 				JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
 				int opResult = Integer.parseInt(cmObj.get("result").toString());
-				if(opResult==1)
-					return true;
-				else
-					return false;
+			if(opResult==1) {
+				logger.debug(" clear code  command  return ok ");
+				return true;
+			}
+			else {
+				logger.debug(" clear code  command  return failed ");
+				return false;
+			}
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -310,6 +328,7 @@ public class CarServiceImpl  implements CarService {
 	}
 
 	public boolean sendPowerOn(String vin) {
+		logger.debug("called power on  command with vin "+vin);
 		try {
 			String timeStr = String.valueOf(System.currentTimeMillis());
 			String data = "time="+timeStr+"&vin="+vin;
@@ -317,10 +336,14 @@ public class CarServiceImpl  implements CarService {
 			String result = HttpPostUtils.post(url, data);
 			JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
 			int opResult = Integer.parseInt(cmObj.get("result").toString());
-			if(opResult==1)
+			if(opResult==1) {
+				logger.debug(" power on  command  return ok ");
 				return true;
-			else
+			}
+			else {
+				logger.debug(" power on  command  return failed ");
 				return false;
+			}
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -328,6 +351,7 @@ public class CarServiceImpl  implements CarService {
 	}
 
 	public boolean sendAuthCode(String vin) {
+		logger.debug("called send auth   command with vin "+vin);
 		try {
 			String postUrl=ConfigUtils.getPropValues("cloudmove.sendAuth");
 			String timeStr = String.valueOf(System.currentTimeMillis());
@@ -336,8 +360,11 @@ public class CarServiceImpl  implements CarService {
 			JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
 			int opResult = Integer.parseInt(cmObj.get("result").toString());
 			if(opResult==1) {
+				logger.debug(" send auth   command  return ok ");
 				return true;
-			} else {
+			}
+			else {
+				logger.debug(" send auth  command  return failed ");
 				return false;
 			}
 		} catch(Exception e){

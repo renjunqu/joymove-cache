@@ -22,7 +22,6 @@ import sun.misc.BASE64Encoder;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.HashMap;
-import java.util.IntSummaryStatistics;
 import java.util.Map;
 
 import org.w3c.dom.Document;
@@ -104,7 +103,7 @@ public class Id5Utils {
                 String idName = policeCheckInfo.dfsFind("name").content;
                 logger.error("check ok");
                 //logger.error(sex2);
-                infoMap.put("sex",sex2);
+                infoMap.put("sex",sex2.equals("女")?"0":"1");
                 infoMap.put("idNo",idNo);
                 infoMap.put("idName",idName);
             } else {
