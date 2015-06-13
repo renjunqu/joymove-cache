@@ -18,7 +18,8 @@ public class CarOpLock {
     public static ReentrantLock lockOfLock = new ReentrantLock();
 
     public static  ReentrantLock getCarLock(String vinNum){
-
+        if(vinNum==null || vinNum.length()==0)
+            return null;
         ReentrantLock lock = carOptLockMap.get(vinNum);
         if(lock==null) {
             lockOfLock.lock();
