@@ -12,11 +12,11 @@ public class testStr {
         for(int i=0;i<test.length();i++) {
             long m = (long)test.charAt(i);
             if(m<128) {
-                    System.out.println("ascii");
+                   // logger.trace("ascii");
                  } else {
-                System.out.println(" not ascii");
+               // logger.trace(" not ascii");
             }
-            System.out.println(test.charAt(i));
+           // logger.trace(test.charAt(i));
 
         }
 

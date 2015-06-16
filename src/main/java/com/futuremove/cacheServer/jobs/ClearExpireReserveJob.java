@@ -65,6 +65,6 @@ public class ClearExpireReserveJob  implements Job {
 			//logger.debug(e.printStackTrace());
 			logger.debug("show exception over");
 		}
-		//System.out.println("Job executing: "+name + " ****** Date: "+new Date());
+		//logger.trace("Job executing: "+name + " ****** Date: "+new Date());
 	}
 }

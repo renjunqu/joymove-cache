@@ -10,9 +10,9 @@ public class Chinese implements Human {
 		this.myFood = myFood;
 	}
 	public void eat(){
-    	System.out.println("i am chinese eat myFood, it is " + myFood.name());
+    //	logger.trace("i am chinese eat myFood, it is " + myFood.name());
     }
     public void walk(){
-     	System.out.println("i am chinese walk"); 	
+     //	logger.trace("i am chinese walk");
     }
 }

@@ -28,7 +28,7 @@ public class ConfigUtils {
 	}
 	
 	public static void main(String[] args){
-		System.out.println(ConfigUtils.getPropValues("hello1"));
+	//	logger.trace(ConfigUtils.getPropValues("hello1"));
 		
 	}
 

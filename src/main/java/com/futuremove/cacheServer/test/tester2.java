@@ -9,7 +9,7 @@ public class tester2 {
 		Food h = null;
 		h = (Food)context.getBean("Food");
 		System.setProperty("ttt", "qrj");
-		System.out.println(h.getName());		
+	//	logger.trace(h.getName());
 	}
 
 }

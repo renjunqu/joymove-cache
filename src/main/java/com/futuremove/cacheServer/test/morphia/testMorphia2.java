@@ -63,7 +63,7 @@ public class testMorphia2 {
 		
 		//datastore.update(q, ops,true);
 		
-		System.out.println("over");
+	//	logger.trace("over");
 	}
 
 }

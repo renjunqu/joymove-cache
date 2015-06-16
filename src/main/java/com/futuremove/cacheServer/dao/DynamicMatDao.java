@@ -132,8 +132,8 @@ public class DynamicMatDao{
 				.field("y").greaterThan(minY)
 				.field("y").lessThan(maxY);
 		List<DynamicMat> mats = q.asList();
-		//System.out.println(mats);
-		//System.out.println(mats.size());
+		//logger.trace(mats);
+		//logger.trace(mats.size());
 		List<DynamicMatCarInfo> infos = new ArrayList<DynamicMatCarInfo>();
 		if(mats!=null) {
 			for(DynamicMat mat:mats) {

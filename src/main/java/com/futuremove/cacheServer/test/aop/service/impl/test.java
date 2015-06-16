@@ -8,7 +8,7 @@ import com.futuremove.cacheServer.test.Human;
 public class test {
 	
 	public void test1() throws Exception{
-		System.out.println("try to throw exception");
+	//	logger.trace("try to throw exception");
 		throw new Exception("sdfdsf");
 	}
 	
@@ -18,7 +18,7 @@ public class test {
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/cacheServerBeans.xml");
 		test t = null;
 		t = (test)context.getBean("test");
-		System.out.println(t);
+	//	logger.trace(t);
 		t.test1();
 		} catch(Exception e){
 			e.printStackTrace();

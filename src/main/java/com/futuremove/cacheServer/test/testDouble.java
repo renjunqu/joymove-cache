@@ -10,7 +10,7 @@ public class testDouble {
 		  Double maxLatitude = 40.180934;
 		  Double latitudeInterval = 0.000407;
 		  Double q = 116.4443;
-		//  System.out.println(((Double)((q-minLongitude)/longitudeInterval)).longValue());
+		//  logger.trace(((Double)((q-minLongitude)/longitudeInterval)).longValue());
 		
 		
 	}

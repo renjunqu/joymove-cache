@@ -5,6 +5,8 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.dom4j.Attribute;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 
 import java.io.ByteArrayInputStream;
@@ -16,7 +18,11 @@ import java.util.List;
  * Created by jessie on 2015/6/9.
  */
 public class Transformer {
-     public static Entity transformXmlToEntity(String xml) throws Exception {
+
+    final static Logger logger = LoggerFactory.getLogger(Transformer.class);
+
+
+    public static Entity transformXmlToEntity(String xml) throws Exception {
          SAXReader saxReader = new SAXReader();
          Document document = saxReader.read(new ByteArrayInputStream(xml.getBytes("utf8")));
          Element rootEle = document.getRootElement();
@@ -68,7 +74,7 @@ public class Transformer {
                "  </policeCheckInfos>\n" +
                "</data>";
         Entity reEntity = transformXmlToEntity(testXml);
-        System.out.println(reEntity.dfsFind("policeCheckInfo"));
+        logger.trace(reEntity.dfsFind("policeCheckInfo").toString());
         return ;
     }
 }

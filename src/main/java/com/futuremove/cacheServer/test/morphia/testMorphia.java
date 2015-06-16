@@ -45,8 +45,8 @@ public class testMorphia {
 			/*
 			Query t = datastore.createQuery(Event.class).field("eventId").equal("123");
 			List<Event> es = t.asList();
-			System.out.println("sdfsdf");
-			System.out.println(es.get(0).getEventId());
+			logger.trace("sdfsdf");
+			logger.trace(es.get(0).getEventId());
 			*/
 			
 			

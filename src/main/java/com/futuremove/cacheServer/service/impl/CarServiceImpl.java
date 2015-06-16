@@ -242,8 +242,8 @@ public class CarServiceImpl  implements CarService {
 					retCars.add(car);
 			}
 		} catch(Exception e){
-			System.out.println("inside busy scop exception");
-			System.out.println(e);
+			logger.trace("inside busy scop exception");
+			logger.trace(e.getStackTrace().toString());
 		}
 		return retCars;
 	}

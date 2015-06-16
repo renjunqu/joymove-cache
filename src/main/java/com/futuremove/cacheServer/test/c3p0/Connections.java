@@ -50,7 +50,7 @@ public class Connections {
 			ResultSet rs = stat.executeQuery(query);
 			while(rs.next()){
 				
-				System.out.println(rs.getString("id"));
+				logger.trace(rs.getString("id"));
 			}
 			
 		
@@ -66,7 +66,7 @@ public class Connections {
 			}
 		}
     	
-    	System.out.println("hello world");
+    	logger.trace("hello world");
     	
     }
     */

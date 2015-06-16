@@ -8,12 +8,12 @@ import org.springframework.core.annotation.Order;
 public class AdviceTest2 {
 	@Before("execution(* com.futuremove.cacheServer.test.aop.cutter.*.*(..))")  
     public void authorith(){  
-        System.out.println("模拟进行权限检查22222。");  
+       // logger.trace("模拟进行权限检查22222。");
     }  
 	
 	@After("execution(* com.futuremove.cacheServer.test.aop.cutter.*.*(..))")  
-    public void after(){  
-        System.out.println("after22222222。");  
+    public void after(){
+       // logger.trace("after22222222。");
     }
 	
 	
