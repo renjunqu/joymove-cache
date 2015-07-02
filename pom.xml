@@ -11,11 +11,7 @@
   <url>http://maven.apache.org</url>
   
      <repositories>
-		 <repository>
-			 <id>nexus</id>
-			 <name>futuremove</name>
-			 <url>http://123.56.135.176:8081/nexus</url>
-		 </repository>
+
 
 		 <!--
     <repository>
@@ -107,12 +103,19 @@
 	    <optional>true</optional>
 	</dependency>
 
-
+<!--
 	<dependency>
 		<groupId>org.mongodb</groupId>
 		<artifactId>mongo-java-driver</artifactId>
 		<version>2.13.0</version>
 	</dependency>
+-->
+	  <dependency>
+		  <groupId>org.mongodb</groupId>
+		  <artifactId>mongo-java-driver</artifactId>
+		  <version>3.0.2</version>
+	  </dependency>
+
 	
 	
 <dependency>

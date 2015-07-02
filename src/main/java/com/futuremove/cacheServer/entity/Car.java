@@ -35,6 +35,10 @@ public class Car {
 	
 	@Indexed
 	private String owner;//reserver or renter
+
+
+	//车牌号
+	private String licenseNum;
 	
 	
 	
@@ -81,8 +85,10 @@ public class Car {
 	public void setState(Integer state) {
 		this.state = state;
 	}
+	public String getLicenseNum(){return this.licenseNum;}
+	public void setLicenseNum(String licenseNum) {this.licenseNum = licenseNum;}
 	public Car(String vinNum, Double longitude, Double latitude,
-			Double desLongitude, Double desLatitude,  Integer state,String owner) {
+			Double desLongitude, Double desLatitude,  Integer state,String owner,String licenseNum) {
 		super();
 		this.vinNum = vinNum;
 		this.longitude = longitude;
@@ -91,6 +97,7 @@ public class Car {
 		this.desLatitude = desLatitude;
 		this.state = state;
 		this.owner = owner;
+		this.licenseNum = licenseNum;
 	}
 	public Car() {
 		super();
