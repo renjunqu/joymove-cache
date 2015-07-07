@@ -8,6 +8,7 @@ import com.mongodb.client.model.UpdateOptions;
 import org.bson.Document;
 
 import javax.print.Doc;
+import java.util.Date;
 
 /**
  * Created by qurj on 15/7/2.
@@ -21,6 +22,7 @@ public abstract class BaseServiceImpl implements BaseService {
         Document setDocument  = new Document();
         UpdateOptions options = new UpdateOptions();
         options.upsert(false);
+        value.updateTime = new Date(System.currentTimeMillis());
         setDocument.append("$set",value.toDocument());
         collection.updateMany(query.toDocument(), setDocument, options);
     }
@@ -37,6 +39,8 @@ public abstract class BaseServiceImpl implements BaseService {
 
     public void insert(Base value) {
         MongoCollection<Document> collection = this.getCollection();
+        value.createTime = new Date(System.currentTimeMillis());
+        value.updateTime = new Date(System.currentTimeMillis());
         collection.insertOne(value.toDocument());
     }
 

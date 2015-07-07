@@ -1,5 +1,7 @@
 package com.futuremove.cacheServer.entity;
 
+import java.util.Date;
+
 /**
  * Created by qurj on 15/7/6.
  */
@@ -31,4 +33,6 @@ public class CarDynProps  extends Base {
     //车牌号
     public String      licenseNum;
     public String      owner;
+    public Date        dataUpdateTime;
+    public Date        stateUpdateTime;
 }

@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import javax.print.Doc;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,9 @@ import java.util.Map;
  */
 public class Base {
     public ObjectId _id;
+    public Date createTime;
+    public Date updateTime;
+
 
 
 

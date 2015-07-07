@@ -57,6 +57,10 @@ public class CarDynPropsServiceImpl extends BaseServiceImpl implements CarDynPro
         locFilter.put("$near",new Document().append("$geometry",centerFilter.location.toDocument())
                                             .append("$maxDistance",maxDistance));
         filterDoc.put("location",locFilter);
+        if(centerFilter.dataUpdateTime!=null) {
+            //做一个最早时间过滤
+            filterDoc.put("dataUpdateTime",new Document().append("$gt",centerFilter.dataUpdateTime));
+        }
         return collection.find(filterDoc);
     }
 
@@ -67,6 +71,10 @@ public class CarDynPropsServiceImpl extends BaseServiceImpl implements CarDynPro
         locFilter.put("$near",new Document().append("$geometry",centerFilter.location.toDocument())
                 .append("$maxDistance",maxDistance));
         filterDoc.put("location",locFilter);
+        if(centerFilter.dataUpdateTime!=null) {
+            //做一个最早时间过滤
+            filterDoc.put("dataUpdateTime",new Document().append("$gt",centerFilter.dataUpdateTime));
+        }
         return collection.count(filterDoc);
     }
 
