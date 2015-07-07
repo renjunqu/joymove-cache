@@ -4,7 +4,7 @@ import org.mongodb.morphia.Datastore;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.futuremove.cacheServer.dao.CarDao;
+
 import com.futuremove.cacheServer.entity.Car;
 
 public class testDao {

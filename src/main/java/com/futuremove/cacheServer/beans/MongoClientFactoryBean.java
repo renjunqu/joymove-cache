@@ -48,6 +48,7 @@ public class MongoClientFactoryBean  extends AbstractFactoryBean {
     * @throws Exception
     */
    private MongoClient initMongo() throws Exception {
+
        // 根据条件创建Mongo实例
 	   MongoClientOptions options = new MongoClientOptions.Builder()
 	   .connectTimeout(600000)

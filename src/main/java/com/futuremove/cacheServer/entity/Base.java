@@ -40,6 +40,9 @@ public class Base {
                         Object valueObj = entityClass.newInstance();
                         ((Base)valueObj).fromDocument((Document) document.get(f.getName()));
                         f.set(this,entityClass.cast(valueObj));
+                    }else if(f.getType().equals(Integer.class) && document.get(f.getName()).getClass().equals(Double.class)){
+                         Double valDouble =  (Double)document.get(f.getName());
+                         f.set(this,valDouble.intValue());
                     } else {
                         f.set(this,document.get(f.getName()));
                     }
@@ -58,8 +61,12 @@ public class Base {
                 f.setAccessible(true);
                 if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
                     // do nothing
-                } else  if(Base.class.isAssignableFrom(f.getType())) {
-                    System.out.println("could be assin");
+                } else  if(Base.class.isAssignableFrom(f.getType()) && f.get(this)!=null) {
+                   // System.out.println("could be assin");
+                    if(f.get(this)==null)
+                        System.out.println("its null");
+                    else
+                        System.out.println("its not null");
                     reDoc.append(f.getName(),((Base)f.get(this)).toDocument());
                 } else if(f.get(this)!=null) {
                     reDoc.append(f.getName(),f.get(this));
@@ -69,6 +76,22 @@ public class Base {
             e.printStackTrace();
         }
         return reDoc;
+    }
+
+    public void clearProperties(){
+        Field[] fs = this.getClass().getFields();
+        try {
+            for(Field f:fs) {
+                f.setAccessible(true);
+                if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
+                    // do nothing
+                } else {
+                    f.set(this,null);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -21,6 +21,7 @@ public class CarDynProps  extends Base {
     public static int state_wait_clearcode = 8;
 
     public String      vinNum;
+    //need "2dsphere" index
     public CarLocation location;
     public Double      powerPercent;
     public Double      mileage;

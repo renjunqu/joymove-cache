@@ -7,5 +7,10 @@ import java.util.ArrayList;
  */
 public class CarLocation  extends Base {
     public final String type="Point";
-    public ArrayList<Double> coordinates;
+    public final ArrayList<Double> coordinates = new ArrayList<Double>();
+
+    public CarLocation(){
+        coordinates.add(0.0);
+        coordinates.add(0.0);
+    }
 }
