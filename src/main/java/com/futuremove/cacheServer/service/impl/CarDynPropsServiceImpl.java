@@ -51,6 +51,8 @@ public class CarDynPropsServiceImpl extends BaseServiceImpl implements CarDynPro
 
 
     public FindIterable<Document> getNearByNeededCar(Long maxDistance,CarDynProps centerFilter) {
+        if(maxDistance<200L)
+            maxDistance = 200L;
         MongoCollection<Document> collection = this.getCollection();
         Document filterDoc = centerFilter.toDocument();
         Document locFilter = new Document();
@@ -65,6 +67,8 @@ public class CarDynPropsServiceImpl extends BaseServiceImpl implements CarDynPro
     }
 
     public Long countNearByNeededCar(Long maxDistance,CarDynProps centerFilter){
+        if(maxDistance<200L)
+            maxDistance = 200L;
         MongoCollection<Document> collection = this.getCollection();
         Document filterDoc = centerFilter.toDocument();
         Document locFilter = new Document();
