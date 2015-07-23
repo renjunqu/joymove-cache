@@ -41,6 +41,23 @@
     </properties>
   
   <dependencies>
+
+	  <dependency>
+		  <groupId>org.apache.velocity</groupId>
+		  <artifactId>velocity</artifactId>
+		  <version>1.7</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.apache.velocity</groupId>
+		  <artifactId>velocity-tools</artifactId>
+		  <version>2.0</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.mybatis.scripting</groupId>
+		  <artifactId>mybatis-velocity-haha</artifactId>
+		  <version>1.2-SNAPSHOT</version>
+	  </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
